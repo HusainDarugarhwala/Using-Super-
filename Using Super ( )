@@ -1,0 +1,163 @@
+/*
+ * This a simple example of superclass and subclass using 'super()'
+ * 
+ * */
+
+class SuperDuperClass
+{
+	
+	Double a;
+	Double b;
+	static int count=0;		// initializing static int variable count with 0
+	
+	
+	// Constructor of Parent Class
+	SuperDuperClass (double a1, double a2)
+	{
+		a=a1;
+		b=a2;
+		count++;
+	}
+	
+	// Show () in Parent Class
+	void Show()
+	{	System.out.println("Object Number : #"+count+"\n");
+		System.out.println("\nYou Are In SuperDuperClass");
+		System.out.println("\nValue Of a and b Is : "+a+" , "+b+"\n");
+		System.out.println("Sum Of a And b Is: "+(a+b)+"\n");
+		System.out.println("\n****************************************************\n");
+	}
+	
+}
+
+// Parent Class is being defined
+class SuperClass extends SuperDuperClass
+{
+	
+	Double d;
+	Double e;
+	
+	
+	
+	// Constructor of Parent Class
+	SuperClass (double b1, double b2,/* b1's and b2's values are for SuperDuperClass Constructor */ double b3, double b4)
+	{
+		super(b1,b2);
+		d=b3;
+		e=b4;
+	// the reason for commenting below line is Referenced between line no "153-163"
+	//	count++;
+	}
+	
+	// Show () in Parent Class
+	void Show()
+	{	System.out.println("Object Number : #"+count+"\n");
+		System.out.println("\nYou Are In SuperClass");
+		System.out.println("\nValue Of a, b, d and e Is : "+a+" , "+b+" , "+d+" , "+e+"\n");
+		System.out.println("Sum Of a,b,d And e Is: "+(a+b+d+e)+"\n");
+		System.out.println("\n****************************************************\n");
+	}
+	
+}
+
+
+// Child Class is being defined
+class SubClass extends SuperClass
+{
+	double f;
+	double g;
+	double h;
+	
+	// Constructor of Child Class
+	SubClass (double c1 , double c2,/* c1 and c2's values are for SuperDuperClass Constructor */ double c3, double c4, /* c3 and c4 Values for SuperClass Constructor Gone Through Super() Calling Parent Class' Constructor */double c5, double c6, double c7)
+	{
+		
+	// Using Super() to call Parent Class Constructor	
+	super(c1,c2,c3,c4);
+	f=c5;
+	g=c6;
+	h=c7;
+	// the reason for commenting below line is Referenced between line no "153-163"
+	// count++;        
+	}
+	
+	// Overriding Show () also defined in Parent Class and Child Class
+	void Show()
+	{
+		System.out.println("Object Number : #"+count+"\n");
+		System.out.println("\nYou Are In SubClass");
+		System.out.println("\na="+a+" , b="+b+" , d="+d+" , e="+e+" , f="+f+" , g="+g+" And h="+h+"\n");
+		System.out.println("Sum Of a, b, d, e, f, g And h Is: "+(a+b+d+e+f+g+h)+"\n");
+		System.out.println("\n****************************************************\n");
+	}
+	
+}
+
+// Class Super is being Created
+public class Super
+{
+	
+	
+	// Getting to main ()
+	public static void main(String[] args)
+	{
+		
+		System.out.println("\n****************************************************\n");
+		
+		SuperDuperClass obj1 = new SuperDuperClass( 0100, 450.95);
+		obj1.Show();
+		
+		SuperDuperClass obj2 = new SuperClass(48,58, 0100, 450.95);
+		obj2.Show();
+		
+		SuperDuperClass obj3 = new SubClass(48,58, 0100, 450.95, 45.454, 453.0, 543.5450);
+		obj3.Show();
+		//****** created three possible combinations*********************************************************
+		
+		
+		// the below commented lines of code would generate error
+	//	SuperClass obj4 = new SuperDuperClass(48,58,98,100);
+	//	obj4.Show();
+		
+		SuperClass obj5 = new SuperClass(48,58,98,100);
+		obj5.Show();
+		
+	 	
+		SuperClass obj6 = new SubClass(48,95, 45.0, 045456., 0454.4154, 45.12, 455.1990);
+		obj6.Show();
+		
+		//****** created three possible combinations*********************************************************
+		
+		
+	//	SubClass obj7 = new SuperDuperClass(100,48,95,200,10, 455.5, 789.54540);
+	//	obj7.Show();
+		
+	//	SubClass obj8 = new SuperClass(100,48,95,200);
+	//	obj8.Show();
+		
+		SubClass obj9 = new SubClass(100,10, 789.2, .15450, 4546.1546, 54.0, 0454.551454);
+		obj9.Show();
+		
+		//****** created three possible combinations*********************************************************
+		
+		
+		
+	
+	}// exiting main()	
+
+}// Class Super Closed
+
+
+
+
+/*
+ * the Count is used as static variable in SuperDuperClass and is initialized to 0 and when object one is created by reference of SuperDuperClass
+ * is initialized to 1 by 'count++' in SuperDuperClass() Constructor.
+ * 
+ * When Second Object was created the Constructor of SuperClass Called SuperDuperClass Constructor By use Of 'super()' Which re-changed the value
+ * of count by +1 
+ * 
+ * so it was useless to use count in SuperClass and SubClass Constructor as the SubClass Constructor is Already Calling SuperClass Constructor and 
+ * SuperClass Constructor is Calling SuperDuperClass Constructor.
+ * so the value of count is incrementing already , no need to increment it again in further Class' Constructor.
+ */
